@@ -1,0 +1,19 @@
+.pokemon-main-container{
+  width: 80%;
+  height: 70vh;
+  border: 2px solid rgb(145, 4, 4);
+  border-radius: 20px;
+  margin: auto;
+}
+
+.search-pokemon-container{
+  width: 100%;
+  padding: 10px;
+}
+
+.search-input{
+  border-radius: 10px;
+  border-color: rgb(230, 77, 0);
+  padding: 5px;
+  width: 70%;
+}
