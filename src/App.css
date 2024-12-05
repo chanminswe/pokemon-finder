@@ -7,6 +7,9 @@
 }
 
 .search-pokemon-container{
+  display: flex;
+  align-items: center;
+
   width: 100%;
   padding: 10px;
 }
@@ -16,4 +19,14 @@
   border-color: rgb(230, 77, 0);
   padding: 5px;
   width: 70%;
+}
+
+.search-icon:hover{
+  
+}
+
+.search-icon{
+  height: 20px;
+  margin-left: 5px;
+  padding : 5px;
 }
