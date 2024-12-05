@@ -5,11 +5,23 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
   const [pokemon, setPokemon] = useState("");
+  const [pokemonData, setPokemonData] = useState([]);
 
   function searchPokemon() {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-    .then(response => console.log(response))
-    .catch(error => console.error(error));
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLocaleLowerCase()}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Pokemon Not Found");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPokemonData(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -25,6 +37,11 @@ const App = () => {
           icon={faMagnifyingGlass}
         />
       </header>
+      <section className="information-section">
+        <figure>
+          <img src={pokemonData.sprites.front_default} alt={pokemonData.name} />
+        </figure>
+      </section>
     </div>
   );
 };
