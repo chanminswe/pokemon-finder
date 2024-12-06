@@ -1,9 +1,10 @@
 .pokemon-main-container{
   width: 80%;
-  height: 70vh;
+  height: auto;
   border: 2px solid rgb(145, 4, 4);
   border-radius: 20px;
   margin: auto;
+  padding: 5px;
 }
 
 .search-pokemon-container{
@@ -57,6 +58,44 @@
 .type-style{
   width: 40px;
   height: auto;
-  background-color: aqua;
-  border: 2px solid gray;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  background-color: rgb(146, 210, 244);
+  border: 2px solid rgb(73, 128, 195);
+  border-radius: 10px;
+}
+
+.stats-container { 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width: auto; 
+  border-radius: 15px; 
+} 
+
+.stats-name-container{
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+}
+
+progress{
+  width: 50%;
+}
+
+progress {
+  -webkit-appearance: none; /* Remove default styles */
+}
+
+::-webkit-progress-bar {
+  background-color: rgb(210, 209, 207); 
+  border-radius: 10px; 
+}
+
+::-webkit-progress-value {
+  background-color: rgb(220, 158, 1); 
+  border-radius: 10px;
 }
