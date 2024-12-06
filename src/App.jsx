@@ -7,6 +7,25 @@ const App = () => {
   const [pokemon, setPokemon] = useState("");
   const [pokeapi, setPokeapi] = useState();
   const [pokemonStats, setPokemonStats] = useState([]);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   async function searchPokemon() {
     await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
@@ -39,33 +58,61 @@ const App = () => {
           icon={faMagnifyingGlass}
         />
       </header>
-      <>
-        {pokeapi && (
-          <section className="image-section">
+      {pokeapi && (
+        <section className="image-section">
+          {windowSize.width <= 700 && (
             <img
               className="pokemon-image"
               src={pokeapi.sprites.front_default}
               alt={pokeapi.name}
             />
-            {pokeapi.types.length === 1 ? (
-              <div>{pokeapi.types[0].type.name}</div>
-            ) : (
-              <section className="type-section">
-                <div className="type-style">{pokeapi.types[0].type.name}</div>
-                <div className="type-style">{pokeapi.types[1].type.name}</div>
-              </section>
-            )}
-          </section>
-        )}
-      </>
+          )}
+          {windowSize.width > 700 && (
+            <>
+              {" "}
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.front_default}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.back_default}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.front_shiny}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.back_shiny}
+                alt={pokeapi.name}
+              />
+            </>
+          )}
+
+          {pokeapi.types.length === 1 ? (
+            <section className="type-section">
+              <div className="type-style">{pokeapi.types[0].type.name}</div>
+            </section>
+          ) : (
+            <section className="type-section">
+              <div className="type-style">{pokeapi.types[0].type.name}</div>
+              <div className="type-style">{pokeapi.types[1].type.name}</div>
+            </section>
+          )}
+        </section>
+      )}
       {pokemonStats.length > 0 && (
         <section className="stats-section">
           {pokemonStats.map((stats, index) => (
             <>
               <div className="stats-container" key={index}>
-                <div className="stats-name-container">
-                  <p>{stats.stat.name}</p>
-                  <p>{stats.base_stat}</p>
+                <div key={index} className="stats-name-container">
+                  <p className="stat-name">{stats.stat.name}</p>
+                  <p className="base-stat">{stats.base_stat}</p>
                 </div>
                 <progress value={stats.base_stat} max={255}></progress>
               </div>
