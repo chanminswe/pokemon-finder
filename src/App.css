@@ -1,13 +1,13 @@
 .pokemon-main-container{
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   width: 80%;
   height: auto;
   border: 2px solid rgb(145, 4, 4);
-  border-radius: 20px;
+  border-radius: 30px;
   margin: auto;
-  padding: 5px;
 }
 
 .search-pokemon-container{
@@ -124,21 +124,28 @@ progress {
 
 @media (min-width: 700px) {
 
+  .search-pokemon-container{
+    align-self: self-start;
+    width: 60%;
+  }
+
   .image-section{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
+    align-items: center;
     width: 50%;
   }
   
   .pokemon-main-container{
+    display: flex;
+    justify-content: center;
     width: 95%;
-    height: auto;
+    height: 80vh;
     border: 2px solid rgb(145, 4, 4);
-    border-radius: 20px;
+    border-radius: 30px;
     margin: auto;
-    padding: 5px;
+    padding: 10px;
   }
   
   .pokemon-image{
@@ -154,6 +161,7 @@ progress {
   .stats-section{
     width: 45%;
   }
+  
   
   
 }

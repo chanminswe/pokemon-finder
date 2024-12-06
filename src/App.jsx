@@ -11,6 +11,7 @@ const App = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [pokemonMoves, setPokemonMoves] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +40,7 @@ const App = () => {
         console.log(data);
         setPokeapi(data);
         setPokemonStats(data.stats);
+        setPokemonMoves(data.moves);
       })
       .catch((error) => {
         console.error(error);
