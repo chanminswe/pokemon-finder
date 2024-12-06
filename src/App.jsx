@@ -5,10 +5,10 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const App = () => {
   const [pokemon, setPokemon] = useState("");
-  const [pokemonData, setPokemonData] = useState([]);
+  const [pokeapi, setPokeapi] = useState();
 
-  function searchPokemon() {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLocaleLowerCase()}`)
+  async function searchPokemon() {
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Pokemon Not Found");
@@ -17,7 +17,7 @@ const App = () => {
       })
       .then((data) => {
         console.log(data);
-        setPokemonData(data);
+        setPokeapi(data);
       })
       .catch((error) => {
         console.error(error);
@@ -37,11 +37,19 @@ const App = () => {
           icon={faMagnifyingGlass}
         />
       </header>
-      <section className="information-section">
-        <figure>
-          <img src={pokemonData.sprites.front_default} alt={pokemonData.name} />
-        </figure>
-      </section>
+      {pokeapi && (
+        <section className="image-section">
+          <img className="pokemon-image" src={pokeapi.sprites.front_default} alt={pokeapi.name} />
+          {pokeapi.types.length === 1 ? (
+            <div>{pokeapi.types[0].type.name}</div>
+          ) : (
+            <section className="type-section">
+              <div className="type-style">{pokeapi.types[0].type.name}</div>
+              <div className="type-style">{pokeapi.types[1].type.name}</div>
+            </section>
+          )}
+        </section>
+      )}
     </div>
   );
 };
