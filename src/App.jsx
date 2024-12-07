@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 
 const App = () => {
   const [pokemon, setPokemon] = useState("");
@@ -11,7 +12,7 @@ const App = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [pokemonMoves, setPokemonMoves] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,14 +41,15 @@ const App = () => {
         console.log(data);
         setPokeapi(data);
         setPokemonStats(data.stats);
-        setPokemonMoves(data.moves);
       })
       .catch((error) => {
+        setErrorMessage(error.message);
         console.error(error);
       });
   }
 
   return (
+    
     <div className="pokemon-main-container">
       <header className="search-pokemon-container">
         <input
@@ -60,6 +62,7 @@ const App = () => {
           icon={faMagnifyingGlass}
         />
       </header>
+      {errorMessage && <p style={{ textAlign: "center" }}>{errorMessage}</p>}
       {pokeapi && (
         <section className="image-section">
           {windowSize.width <= 700 && (
@@ -69,7 +72,7 @@ const App = () => {
               alt={pokeapi.name}
             />
           )}
-          {windowSize.width > 700 && (
+          {windowSize.width >= 700 && windowSize.width < 900 && (
             <>
               {" "}
               <img
@@ -90,6 +93,42 @@ const App = () => {
               <img
                 className="pokemon-image"
                 src={pokeapi.sprites.back_shiny}
+                alt={pokeapi.name}
+              />
+            </>
+          )}
+
+          {windowSize.width >= 900 && (
+            <>
+              {" "}
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.front_default}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.back_default}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.front_shiny}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.back_shiny}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.other.showdown.front_shiny}
+                alt={pokeapi.name}
+              />
+              <img
+                className="pokemon-image"
+                src={pokeapi.sprites.other.showdown.front_default}
                 alt={pokeapi.name}
               />
             </>
